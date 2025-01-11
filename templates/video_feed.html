@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center mt-4">
+    <h2>Real-Time ASL Detection</h2>
+    <video id="videoElement" autoplay class="border rounded"></video>
+    <p class="mt-3 lead">Place your hand in the frame to see the prediction.</p>
+    <div id="prediction" class="alert alert-info" role="alert">Prediction: Loading...</div>
+</div>
+{% endblock %}

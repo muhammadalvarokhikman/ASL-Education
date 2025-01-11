@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Sign Language Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='img/logo.webp') }}" alt="Logo" class="logo">
+        <h1>Future Sign Language Translator</h1>
+    </header>
+    <main>
+        <div class="video-container">
+            <h2>Live Video Feed</h2>
+            <div class="video-frame">
+                <iframe src="{{ url_for('video_feed') }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="prediction">
+                <span>Predicted: <span id="predicted-letter">-</span></span>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Created with ❤️ for inclusive education</p>
+    </footer>
+</body>
+</html>
