@@ -101,10 +101,10 @@ with st.sidebar:
     st.info("Aplikasi ini menggunakan Machine Learning untuk menerjemahkan bahasa isyarat secara real-time.")
 
 # **Video Feed & Prediksi**
+# **Video Feed & Prediksi**
 col1, col2 = st.columns(2)
 
 # Tombol untuk mengontrol kamera
-camera = cv2.VideoCapture(0)
 start_button = st.button("🔴 Start Camera")
 stop_button = st.button("🛑 Stop Camera")
 
@@ -128,10 +128,14 @@ with col2:
 
 # Kamera aktif
 if st.session_state["camera_active"]:
+    # Pastikan kita hanya menggunakan kamera jika aplikasi dijalankan di lingkungan lokal
+    if "camera" not in st.session_state:
+        st.session_state["camera"] = cv2.VideoCapture(0)
+
     fps = 0
     start_time = time.time()
     while True:
-        ret, frame = camera.read()
+        ret, frame = st.session_state["camera"].read()
         if not ret:
             st.error("Kamera tidak terdeteksi!")
             break
@@ -150,9 +154,9 @@ if st.session_state["camera_active"]:
         if not st.session_state["camera_active"]:
             break
 
-# Pastikan kamera dilepaskan
-camera.release()
-cv2.destroyAllWindows()
+# Pastikan kamera dilepaskan hanya jika aplikasi berjalan di lingkungan lokal
+if "camera" in st.session_state:
+    st.session_state["camera"].release()
 
 # **Image Uploader Section**
 st.markdown("---")
@@ -171,7 +175,7 @@ if uploaded_file is not None:
 
         # Tampilkan prediksi
         st.success(f"Predicted Sign: **{prediction}**")
-
+        
 # **Footer**
 st.markdown("""
     <hr>
